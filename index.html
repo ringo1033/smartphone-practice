@@ -1,305 +1,165 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="スマホ練習">
 <title>スマホ操作れんしゅう</title>
-
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        font-family: sans-serif;
-        background: #f7f7f7;
-        color: #222;
-        text-align: center;
-    }
-
-    .screen {
-        min-height: 100vh;
-        padding: 30px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    h1 {
-        font-size: 32px;
-        margin: 20px 0 15px;
-    }
-
-    .description {
-        font-size: 24px;
-        line-height: 1.6;
-        margin: 10px 0 30px;
-    }
-
-    .menu-button {
-        width: 90%;
-        max-width: 500px;
-        min-height: 100px;
-        margin: 15px;
-        border: none;
-        border-radius: 25px;
-        font-size: 30px;
-        font-weight: bold;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    .menu-button:active {
-        transform: scale(0.97);
-    }
-
-    .tap-area {
-        width: 260px;
-        height: 260px;
-        border-radius: 50%;
-        background: #e53935;
-        margin: 30px auto;
-        border: none;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        touch-action: manipulation;
-    }
-
-    .hold-area {
-        width: 260px;
-        height: 260px;
-        border-radius: 50%;
-        background: #1976d2;
-        margin: 30px auto;
-        border: none;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        touch-action: none;
-    }
-
-    .message {
-        font-size: 28px;
-        font-weight: bold;
-        min-height: 50px;
-        margin: 20px;
-    }
-
-    .back-button {
-        margin-top: 30px;
-        padding: 18px 40px;
-        font-size: 24px;
-        border: none;
-        border-radius: 18px;
-        background: #555;
-        color: white;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .timer {
-        font-size: 42px;
-        font-weight: bold;
-        margin: 10px;
-    }
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:#f7f7f7;color:#222;text-align:center}
+.screen{min-height:100vh;padding:25px 18px 40px;display:flex;flex-direction:column;align-items:center}
+h1{font-size:32px;line-height:1.3;margin:18px 0 12px}
+.description{font-size:24px;line-height:1.65;margin:8px 0 24px}
+.menu-button{width:92%;max-width:520px;min-height:105px;margin:10px;border:0;border-radius:25px;font-size:29px;font-weight:bold;background:white;box-shadow:0 4px 12px rgba(0,0,0,.15);color:#222}
+.menu-button:active{transform:scale(.97)}
+.practice-area{width:270px;height:270px;border-radius:50%;margin:20px auto;border:0;box-shadow:0 5px 15px rgba(0,0,0,.18);touch-action:none;user-select:none}
+.tap-area{background:#e53935}.hold-area{background:#1976d2}
+.message{white-space:pre-line;font-size:27px;line-height:1.45;font-weight:bold;min-height:78px;margin:12px 10px}
+.timer{font-size:42px;font-weight:bold;margin:5px}
+.progress-wrap{width:90%;max-width:430px;height:22px;background:#ddd;border-radius:20px;overflow:hidden;margin:5px auto 15px}
+.progress{height:100%;width:0%;background:#4caf50;transition:width .05s linear}
+.hint{font-size:21px;line-height:1.5;margin:5px 15px 15px}
+.back-button{margin-top:18px;padding:18px 40px;font-size:24px;border:0;border-radius:18px;background:#555;color:white}
+.hidden{display:none}
+.egg-area{width:270px;height:270px;margin:10px auto;border:0;background:transparent;font-size:155px;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none}
+.count{font-size:30px;font-weight:bold;margin:4px}
+.gentle-card{font-size:23px;line-height:1.5;background:white;border-radius:20px;padding:15px 20px;margin:5px 0 10px;max-width:520px}
 </style>
-
 </head>
-
 <body>
 
-<!-- ホーム画面 -->
-
 <div id="home" class="screen">
-    <h1>📱 スマホ操作れんしゅう</h1>
-
-```
-<p class="description">
-    ゆっくり練習しましょう
-</p>
-
-<button class="menu-button" onclick="showTap()">
-    👆 タップ練習
-</button>
-
-<button class="menu-button" onclick="showHold()">
-    ☝️ 長押し練習
-</button>
-```
-
+<h1>📱 スマホ操作れんしゅう</h1>
+<p class="description">ゆっくり練習しましょう</p>
+<button class="menu-button" onclick="showTap()">👆 タップ練習</button>
+<button class="menu-button" onclick="showHold()">☝️ 長押し練習</button>
+<button class="menu-button" onclick="showGentle()">🥚 やさしくタッチ練習</button>
 </div>
-
-<!-- タップ練習 -->
 
 <div id="tapScreen" class="screen hidden">
-    <h1>👆 タップ練習</h1>
-
-```
-<p class="description">
-    赤い丸を<br>
-    <strong>1回タップ</strong>してください。
-</p>
-
-<button id="tapButton" class="tap-area"></button>
-
-<div id="tapMessage" class="message">
-    赤い丸をタップしてください
+<h1>👆 タップ練習</h1>
+<p class="description">赤い丸を<br><strong>ちょん、と1回</strong>タップしてください。</p>
+<button id="tapButton" class="practice-area tap-area"></button>
+<div id="tapMessage" class="message">赤い丸をタップしてください</div>
+<button class="back-button" onclick="goHome()">← もどる</button>
 </div>
-
-<button class="back-button" onclick="goHome()">
-    ← もどる
-</button>
-```
-
-</div>
-
-<!-- 長押し練習 -->
 
 <div id="holdScreen" class="screen hidden">
-    <h1>☝️ 長押し練習</h1>
-
-```
-<p class="description">
-    青い丸を<br>
-    <strong>3秒間押し続けて</strong>ください。
-</p>
-
-<div id="holdButton" class="hold-area"></div>
-
+<h1>☝️ 長押し練習</h1>
+<p class="description">青い丸を<br><strong>そのまま少し押し続けて</strong>ください。</p>
+<div id="holdButton" class="practice-area hold-area"></div>
 <div id="timer" class="timer">0.0秒</div>
-
-<div id="holdMessage" class="message">
-    青い丸を押してください
+<div class="progress-wrap"><div id="holdProgress" class="progress"></div></div>
+<div id="holdMessage" class="message">青い丸を押してください</div>
+<button class="back-button" onclick="goHome()">← もどる</button>
 </div>
 
-<button class="back-button" onclick="goHome()">
-    ← もどる
-</button>
-```
-
+<div id="gentleScreen" class="screen hidden">
+<h1>🥚 やさしくタッチ</h1>
+<div class="gentle-card">
+<strong>スマホは強く押さなくても反応します。</strong><br>
+卵を割らないように、そっと触ってみましょう。
+</div>
+<div class="count" id="gentleCount">1 / 10</div>
+<div id="eggButton" class="egg-area">🥚</div>
+<div class="progress-wrap"><div id="gentleProgress" class="progress"></div></div>
+<div id="gentleMessage" class="message">卵にそっと触れて、すぐ離してください</div>
+<p class="hint">ポイント：指を置いたら、力を抜いて「ちょん」と離します。</p>
+<button class="back-button" onclick="goHome()">← もどる</button>
 </div>
 
 <script>
-
-let holdStart = 0;
-let holdTimer = null;
-let holding = false;
-
-
-// ホームへ
-function goHome() {
-    document.getElementById("home").classList.remove("hidden");
-    document.getElementById("tapScreen").classList.add("hidden");
-    document.getElementById("holdScreen").classList.add("hidden");
-
-    stopHolding();
+function hideAll(){
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("tapScreen").classList.add("hidden");
+ document.getElementById("holdScreen").classList.add("hidden");
+ document.getElementById("gentleScreen").classList.add("hidden");
 }
+function goHome(){hideAll();document.getElementById("home").classList.remove("hidden");stopHolding();stopGentle();clearTimeout(tapTimer)}
+function showTap(){hideAll();document.getElementById("tapScreen").classList.remove("hidden");document.getElementById("tapMessage").textContent="赤い丸をタップしてください";}
+function showHold(){hideAll();document.getElementById("holdScreen").classList.remove("hidden");document.getElementById("holdMessage").textContent="青い丸を押してください";document.getElementById("timer").textContent="0.0秒";document.getElementById("holdProgress").style.width="0%";}
+function showGentle(){hideAll();document.getElementById("gentleScreen").classList.remove("hidden");gentleCount=0;updateGentle();}
 
+/* タップ */
+let tapStart=0,tapTimer=null;
+const tapButton=document.getElementById("tapButton");
+tapButton.addEventListener("pointerdown",e=>{
+ e.preventDefault();tapStart=Date.now();clearTimeout(tapTimer);
+ document.getElementById("tapMessage").textContent="すぐに指を離してください";
+ tapTimer=setTimeout(()=>{document.getElementById("tapMessage").textContent="⚠️ 長く押しています\nタップは「ちょん」と押して離します";},400);
+});
+tapButton.addEventListener("pointerup",e=>{
+ e.preventDefault();clearTimeout(tapTimer);
+ const elapsed=Date.now()-tapStart;
+ document.getElementById("tapMessage").textContent=elapsed<=400?"🎉 できました！\n上手にタップできました。":"⚠️ 長く押しすぎました\nタップは「ちょん」と押して離します。";
+});
+tapButton.addEventListener("pointercancel",()=>clearTimeout(tapTimer));
 
-// タップ練習
-function showTap() {
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("tapScreen").classList.remove("hidden");
+/* 長押し */
+let holdStart=0,holdTimer=null,holding=false;
+const HOLD_TIME=700,holdButton=document.getElementById("holdButton");
+holdButton.addEventListener("pointerdown",e=>{
+ e.preventDefault();holding=true;holdStart=Date.now();
+ document.getElementById("holdMessage").textContent="そのまま、そっと押し続けてください";
+ holdTimer=setInterval(()=>{
+  if(!holding)return;
+  const elapsed=Date.now()-holdStart;
+  document.getElementById("timer").textContent=(elapsed/1000).toFixed(1)+"秒";
+  document.getElementById("holdProgress").style.width=Math.min(100,elapsed/HOLD_TIME*100)+"%";
+  if(elapsed>=HOLD_TIME){document.getElementById("holdMessage").textContent="🎉 できました！\n長押しできました。";stopHolding();}
+ },40);
+});
+holdButton.addEventListener("pointerup",e=>{
+ e.preventDefault();if(!holding)return;
+ if(Date.now()-holdStart<HOLD_TIME)document.getElementById("holdMessage").textContent="もう少しです。\nそのまま少し待ってみましょう。";
+ stopHolding();
+});
+holdButton.addEventListener("pointercancel",stopHolding);
+function stopHolding(){holding=false;if(holdTimer!==null){clearInterval(holdTimer);holdTimer=null;}}
 
-    document.getElementById("tapMessage").textContent =
-        "赤い丸をタップしてください";
+/* やさしくタッチ：10回チャレンジ
+   Safariでは指の押圧を安定取得できないため、短いタッチを「やさしいタッチ」として練習します。 */
+let gentleStart=0,gentleTimer=null,gentleActive=false,gentleCount=0;
+const GENTLE_TIME=450,eggButton=document.getElementById("eggButton");
+function updateGentle(){
+ document.getElementById("gentleCount").textContent=(gentleCount+1)+" / 10";
+ document.getElementById("gentleProgress").style.width=(gentleCount*10)+"%";
+ document.getElementById("gentleMessage").textContent=gentleCount===0?"卵にそっと触れて、すぐ離してください":"もう一度、そっとタッチしてください";
+ eggButton.textContent="🥚";
 }
-
-document.getElementById("tapButton").addEventListener("click", function() {
-
-    document.getElementById("tapMessage").textContent =
-        "🎉 できました！ 上手にタップできました。";
-
+eggButton.addEventListener("pointerdown",e=>{
+ e.preventDefault();gentleActive=true;gentleStart=Date.now();
+ document.getElementById("gentleMessage").textContent="そっと……そのまま……";
+ gentleTimer=setInterval(()=>{
+  if(!gentleActive)return;
+  const elapsed=Date.now()-gentleStart;
+  document.getElementById("gentleProgress").style.width=Math.min(100,gentleCount*10+(elapsed/GENTLE_TIME*10))+"%";
+  if(elapsed>=GENTLE_TIME)document.getElementById("gentleMessage").textContent="💡 力を入れなくても大丈夫です\nそっと触るだけで反応します。";
+ },30);
 });
-
-
-// 長押し練習
-function showHold() {
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("holdScreen").classList.remove("hidden");
-
-    document.getElementById("holdMessage").textContent =
-        "青い丸を押してください";
-
-    document.getElementById("timer").textContent = "0.0秒";
-}
-
-
-const holdButton = document.getElementById("holdButton");
-
-
-// 指を押した
-holdButton.addEventListener("pointerdown", function(event) {
-
-    event.preventDefault();
-
-    holding = true;
-    holdStart = Date.now();
-
-    document.getElementById("holdMessage").textContent =
-        "そのまま押し続けてください";
-
-    holdTimer = setInterval(function() {
-
-        if (!holding) return;
-
-        let elapsed = (Date.now() - holdStart) / 1000;
-
-        document.getElementById("timer").textContent =
-            elapsed.toFixed(1) + "秒";
-
-        if (elapsed >= 3) {
-
-            document.getElementById("holdMessage").textContent =
-                "🎉 できました！ 3秒間長押しできました。";
-
-            stopHolding();
-        }
-
-    }, 50);
-
+eggButton.addEventListener("pointerup",e=>{
+ e.preventDefault();if(!gentleActive)return;
+ const elapsed=Date.now()-gentleStart;stopGentle();
+ if(elapsed<=GENTLE_TIME){
+  gentleCount++;
+  eggButton.textContent="🥚✨";
+  if(gentleCount>=10){
+   document.getElementById("gentleProgress").style.width="100%";
+   document.getElementById("gentleCount").textContent="10 / 10";
+   document.getElementById("gentleMessage").textContent="🎉 やさしいタッチをマスター！\nスマホは強く押さなくても反応します。";
+  }else{
+   document.getElementById("gentleMessage").textContent="🎉 ちょうどいいです！\nそのくらいのやさしいタッチでOKです。";
+   setTimeout(updateGentle,700);
+  }
+ }else{
+  eggButton.textContent="🥚";
+  document.getElementById("gentleMessage").textContent="👍 大丈夫です。\n強く押し続けなくても反応します。\n次は「そっと、ちょん」と触ってみましょう。";
+ }
 });
-
-
-// 指を離した
-holdButton.addEventListener("pointerup", function() {
-
-    if (!holding) return;
-
-    let elapsed = (Date.now() - holdStart) / 1000;
-
-    if (elapsed < 3) {
-
-        document.getElementById("holdMessage").textContent =
-            "もう少しです。もう一度やってみましょう。";
-
-    }
-
-    stopHolding();
-
-});
-
-
-// 指が丸から外れた場合
-holdButton.addEventListener("pointercancel", function() {
-    stopHolding();
-});
-
-
-// 長押し終了
-function stopHolding() {
-
-    holding = false;
-
-    if (holdTimer !== null) {
-        clearInterval(holdTimer);
-        holdTimer = null;
-    }
-
-}
-
+eggButton.addEventListener("pointercancel",stopGentle);
+function stopGentle(){gentleActive=false;if(gentleTimer!==null){clearInterval(gentleTimer);gentleTimer=null;}}
 </script>
-
 </body>
 </html>
